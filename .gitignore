@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+*.pyc
+infra/cdk.out/
+.pytest_cache/
+evaluation/results.json

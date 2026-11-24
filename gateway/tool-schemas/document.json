@@ -1,0 +1,64 @@
+[
+  {
+    "name": "extractDocument",
+    "description": "Read one document with Amazon Textract. Call it first WITHOUT docType to get the text; after classifyDocument, call it again WITH docType to extract the key fields.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "docId": {
+          "type": "string",
+          "description": "Document ID from getDocuments, e.g. DOC-1A2B3C4D"
+        },
+        "docType": {
+          "type": "string",
+          "description": "Optional. One of claim_form, repair_invoice, hospital_invoice, medical_report, id_document"
+        }
+      },
+      "required": [
+        "caseId",
+        "docId"
+      ]
+    }
+  },
+  {
+    "name": "classifyDocument",
+    "description": "Classify a document whose text was already extracted, as claim_form, repair_invoice, hospital_invoice, medical_report, photo_evidence, id_document or other.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "docId": {
+          "type": "string",
+          "description": "Document ID"
+        }
+      },
+      "required": [
+        "caseId",
+        "docId"
+      ]
+    }
+  },
+  {
+    "name": "validateFields",
+    "description": "After every document is extracted and classified: cross-check the fields against the case and policy, list missing documents and flag low confidence. Moves the case to DOCUMENTS_PROCESSED.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  }
+]

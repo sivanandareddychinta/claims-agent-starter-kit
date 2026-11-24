@@ -1,0 +1,136 @@
+[
+  {
+    "adjusterId": "ADJ-01",
+    "name": "Ananya Rao",
+    "role": "adjuster",
+    "regions": [
+      "SOUTH",
+      "WEST"
+    ],
+    "specialties": [
+      "motor",
+      "property"
+    ],
+    "approvalLimit": 0,
+    "openCases": 3,
+    "username": "adjuster1",
+    "email": "adjuster1@example.com"
+  },
+  {
+    "adjusterId": "ADJ-02",
+    "name": "Vikram Singh",
+    "role": "adjuster",
+    "regions": [
+      "NORTH",
+      "EAST"
+    ],
+    "specialties": [
+      "motor",
+      "health"
+    ],
+    "approvalLimit": 0,
+    "openCases": 5,
+    "username": "adjuster2",
+    "email": "adjuster2@example.com"
+  },
+  {
+    "adjusterId": "ADJ-03",
+    "name": "Meera Iyer",
+    "role": "adjuster",
+    "regions": [
+      "SOUTH",
+      "EAST"
+    ],
+    "specialties": [
+      "health",
+      "property"
+    ],
+    "approvalLimit": 0,
+    "openCases": 2,
+    "username": "adjuster3",
+    "email": "adjuster3@example.com"
+  },
+  {
+    "adjusterId": "ADJ-04",
+    "name": "Rahul Mehta",
+    "role": "adjuster",
+    "regions": [
+      "NORTH",
+      "WEST"
+    ],
+    "specialties": [
+      "motor",
+      "health",
+      "property"
+    ],
+    "approvalLimit": 0,
+    "openCases": 4,
+    "username": "adjuster4",
+    "email": "adjuster4@example.com"
+  },
+  {
+    "adjusterId": "APR-01",
+    "name": "Kavita Nair",
+    "role": "approver",
+    "regions": [
+      "ALL"
+    ],
+    "specialties": [],
+    "approvalLimit": 200000,
+    "openCases": 6,
+    "username": "approver1",
+    "email": "approver1@example.com"
+  },
+  {
+    "adjusterId": "APR-02",
+    "name": "Arjun Kapoor",
+    "role": "approver",
+    "regions": [
+      "ALL"
+    ],
+    "specialties": [],
+    "approvalLimit": 200000,
+    "openCases": 8,
+    "username": "approver3",
+    "email": "approver3@example.com"
+  },
+  {
+    "adjusterId": "APR-03",
+    "name": "Sunita Reddy",
+    "role": "senior_approver",
+    "regions": [
+      "ALL"
+    ],
+    "specialties": [],
+    "approvalLimit": 1500000,
+    "openCases": 2,
+    "username": "approver2",
+    "email": "approver2@example.com"
+  },
+  {
+    "adjusterId": "APR-04",
+    "name": "Farhan Ali",
+    "role": "senior_approver",
+    "regions": [
+      "ALL"
+    ],
+    "specialties": [],
+    "approvalLimit": 3000000,
+    "openCases": 1,
+    "username": "approver4",
+    "email": "approver4@example.com"
+  },
+  {
+    "adjusterId": "SUP-01",
+    "name": "Deepa Menon",
+    "role": "supervisor",
+    "regions": [
+      "ALL"
+    ],
+    "specialties": [],
+    "approvalLimit": 0,
+    "openCases": 0,
+    "username": "supervisor1",
+    "email": "supervisor1@example.com"
+  }
+]

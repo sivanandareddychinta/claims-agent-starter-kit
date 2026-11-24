@@ -1,0 +1,533 @@
+{
+  "Comment": "Claims & Case Management workflow: the supervisor agent prepares each stage, people decide.",
+  "StartAt": "Intake",
+  "States": {
+    "Intake": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "intake",
+          "context": {
+            "slaHours.$": "$.slaHours"
+          }
+        }
+      },
+      "ResultSelector": {
+        "result.$": "$.Payload"
+      },
+      "ResultPath": "$.intake",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "Documents"
+    },
+    "Documents": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "documents",
+          "context": {
+            "slaHours.$": "$.slaHours"
+          }
+        }
+      },
+      "ResultSelector": {
+        "result.$": "$.Payload"
+      },
+      "ResultPath": "$.documents",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "CheckDocuments"
+    },
+    "CheckDocuments": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.documents.result.lowConfidence",
+          "BooleanEquals": true,
+          "Next": "LowConfidence"
+        }
+      ],
+      "Default": "Summary"
+    },
+    "Summary": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "summary",
+          "context": {
+            "slaHours.$": "$.slaHours"
+          }
+        }
+      },
+      "ResultSelector": {
+        "result.$": "$.Payload"
+      },
+      "ResultPath": "$.summary",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "EvaluateSummary"
+    },
+    "EvaluateSummary": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "evaluate_summary"
+        }
+      },
+      "ResultSelector": {
+        "result.$": "$.Payload"
+      },
+      "ResultPath": "$.evaluation",
+      "TimeoutSeconds": 120,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "CheckSummaryQuality"
+    },
+    "CheckSummaryQuality": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.evaluation.result.passed",
+          "BooleanEquals": false,
+          "Next": "SummaryDiscrepancy"
+        }
+      ],
+      "Default": "Routing"
+    },
+    "SummaryDiscrepancy": {
+      "Type": "Pass",
+      "Comment": "LLM Judge evaluated summary below 0.80 threshold: discrepancy detected, case routed to Senior Adjuster manual review.",
+      "Result": {
+        "Error": "SummaryDiscrepancy",
+        "Cause": "LLM Judge evaluation score below 0.80: factual inconsistency or policy discrepancy detected in summary"
+      },
+      "ResultPath": "$.error",
+      "Next": "ManualReview"
+    },
+    "Routing": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "routing",
+          "context": {
+            "slaHours.$": "$.slaHours"
+          }
+        }
+      },
+      "ResultSelector": {
+        "result.$": "$.Payload"
+      },
+      "ResultPath": "$.routing",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "WaitForApproval"
+    },
+    "WaitForApproval": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {
+        "FunctionName": "${HumanTaskArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "kind": "approval",
+          "taskToken.$": "$$.Task.Token"
+        }
+      },
+      "ResultPath": "$.decision",
+      "TimeoutSeconds": 604800,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "ApprovalChoice"
+    },
+    "ApprovalChoice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.decision.decision",
+          "StringEquals": "APPROVE",
+          "Next": "FinalizeApproved"
+        },
+        {
+          "Variable": "$.decision.decision",
+          "StringEquals": "REJECT",
+          "Next": "FinalizeRejected"
+        },
+        {
+          "Variable": "$.decision.decision",
+          "StringEquals": "MORE_INFO",
+          "Next": "MoreInfo"
+        }
+      ],
+      "Default": "ManualReview"
+    },
+    "FinalizeApproved": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${FinalizeCaseArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "outcome": "APPROVED"
+        }
+      },
+      "ResultPath": "$.finalize",
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "CloseCase"
+    },
+    "FinalizeRejected": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${FinalizeCaseArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "outcome": "REJECTED"
+        }
+      },
+      "ResultPath": "$.finalize",
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "CloseCase"
+    },
+    "CloseCase": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "close",
+          "context": {
+            "decision.$": "$.decision.decision"
+          }
+        }
+      },
+      "ResultPath": "$.close",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "Done"
+    },
+    "MoreInfo": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${InvokeSupervisorArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "stage": "more_info",
+          "context": {
+            "rationale.$": "$.decision.rationale",
+            "slaHours.$": "$.slaHours"
+          }
+        }
+      },
+      "ResultPath": "$.moreInfo",
+      "TimeoutSeconds": 900,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "AgentInvocationError",
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 10,
+          "MaxAttempts": 2,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "WaitForDocuments"
+    },
+    "WaitForDocuments": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke.waitForTaskToken",
+      "Parameters": {
+        "FunctionName": "${HumanTaskArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "kind": "documents",
+          "taskToken.$": "$$.Task.Token"
+        }
+      },
+      "ResultPath": "$.documentsReceived",
+      "TimeoutSeconds": 604800,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "ManualReview"
+        }
+      ],
+      "Next": "Documents"
+    },
+    "LowConfidence": {
+      "Type": "Pass",
+      "Comment": "OCR or classification confidence too low: a person reviews the documents.",
+      "Result": {
+        "Error": "LowConfidence",
+        "Cause": "Document confidence below threshold; human review needed"
+      },
+      "ResultPath": "$.error",
+      "Next": "ManualReview"
+    },
+    "ManualReview": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${FinalizeCaseArn}",
+        "Payload": {
+          "caseId.$": "$.caseId",
+          "outcome": "MANUAL_REVIEW",
+          "error.$": "$.error"
+        }
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 5,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "ManualReviewDone",
+      "Comment": "Any failure or low-confidence result lands here: the case is parked for a person."
+    },
+    "ManualReviewDone": {
+      "Type": "Succeed"
+    },
+    "Done": {
+      "Type": "Succeed"
+    }
+  }
+}

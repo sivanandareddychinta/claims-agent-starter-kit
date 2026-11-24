@@ -1,0 +1,58 @@
+[
+  {
+    "name": "getPolicy",
+    "description": "Look up an insurance policy by policy number. Returns holder, product, period, covered claim types, sum insured and status.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "policyNumber": {
+          "type": "string",
+          "description": "Policy number, e.g. P-MOT-1001"
+        }
+      },
+      "required": [
+        "policyNumber"
+      ]
+    }
+  },
+  {
+    "name": "findSimilarCases",
+    "description": "Find other cases on the same policy with an incident date within 3 days of this case. Use it to spot duplicate claims before registering.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  },
+  {
+    "name": "createCase",
+    "description": "Register a SUBMITTED claim as a case. Runs the policy coverage checks and records a duplicate if you found one. Moves the case to REGISTERED.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "duplicateOfCaseId": {
+          "type": "string",
+          "description": "Case ID this claim duplicates, if findSimilarCases showed a likely duplicate"
+        },
+        "intakeNotes": {
+          "type": "string",
+          "description": "One or two sentences on what you checked"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  }
+]

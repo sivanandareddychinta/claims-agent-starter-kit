@@ -1,0 +1,65 @@
+{
+  "packId": "PACK-05",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-HLT-2001",
+    "claimType": "health",
+    "claimantName": "Saanvi Bose",
+    "claimantEmail": "saanvi.bose@example.com",
+    "incidentDate": "2026-09-04",
+    "claimedAmount": 64200,
+    "description": "Admitted through emergency with severe abdominal pain; surgery performed.",
+    "region": "WEST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2001",
+        "CLAIMANT_NAME": "Saanvi Bose",
+        "INCIDENT_DATE": "04 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 64,200.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-340047",
+        "PATIENT_NAME": "Saanvi Bose",
+        "ADMISSION_DATE": "04/09/2026",
+        "TOTAL_AMOUNT": "INR 64,200.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Saanvi Bose",
+        "ADMISSION_DATE": "2026-09-04",
+        "DIAGNOSIS": "Community-acquired pneumonia"
+      }
+    },
+    {
+      "file": "id_document.png",
+      "docType": "id_document",
+      "fields": {
+        "FULL_NAME": "Saanvi Bose",
+        "DATE_OF_BIRTH": "07 Jul 1985",
+        "ID_NUMBER": "LAB-ID-408673"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

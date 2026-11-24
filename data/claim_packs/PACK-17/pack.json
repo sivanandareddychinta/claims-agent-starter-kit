@@ -1,0 +1,49 @@
+{
+  "packId": "PACK-17",
+  "scenario": "missing_documents",
+  "claim": {
+    "policyNumber": "P-MOT-1007",
+    "claimType": "motor",
+    "claimantName": "Pooja Kaur",
+    "claimantEmail": "pooja.kaur@example.com",
+    "incidentDate": "2026-09-23",
+    "claimedAmount": 39800,
+    "description": "Rear-ended at a traffic signal; front bumper and headlamp damaged when pushed into the car ahead.",
+    "region": "WEST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-MOT-1007",
+        "CLAIMANT_NAME": "Pooja Kaur",
+        "INCIDENT_DATE": "23 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 39,800.00",
+        "CLAIM_TYPE": "Motor"
+      }
+    },
+    {
+      "file": "repair_invoice.png",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-28139",
+        "INVOICE_DATE": "27/09/2026",
+        "CUSTOMER_NAME": "Pooja Kaur",
+        "TOTAL_AMOUNT": "INR 39,800.00"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [
+      "photo_evidence"
+    ],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

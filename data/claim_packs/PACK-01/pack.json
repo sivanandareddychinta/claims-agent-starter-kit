@@ -1,0 +1,52 @@
+{
+  "packId": "PACK-01",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-MOT-1001",
+    "claimType": "motor",
+    "claimantName": "Diya Das",
+    "claimantEmail": "diya.das@example.com",
+    "incidentDate": "2026-09-12",
+    "claimedAmount": 48600,
+    "description": "Side collision while parking at a mall; door and fender dented.",
+    "region": "WEST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-MOT-1001",
+        "CLAIMANT_NAME": "Diya Das",
+        "INCIDENT_DATE": "12 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 48,600.00",
+        "CLAIM_TYPE": "Motor"
+      }
+    },
+    {
+      "file": "repair_invoice.png",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-77085",
+        "INVOICE_DATE": "20/09/2026",
+        "CUSTOMER_NAME": "Diya Das",
+        "TOTAL_AMOUNT": "INR 48,600.00"
+      }
+    },
+    {
+      "file": "photo_evidence.png",
+      "docType": "photo_evidence",
+      "fields": {}
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

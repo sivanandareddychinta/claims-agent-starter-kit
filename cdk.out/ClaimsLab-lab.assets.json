@@ -1,0 +1,126 @@
+{
+  "version": "55.0.0",
+  "files": {
+    "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6": {
+      "displayName": "ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider Code",
+      "source": {
+        "path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "047719662671-us-east-1-ef2a24eb": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa": {
+      "displayName": "SlaEscalation/Code",
+      "source": {
+        "path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "047719662671-us-east-1-e3d7eb00": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "30b48027bb4458db4367c65fecbf7f51e57e5c5a019021f03b8ece86176ffffc": {
+      "displayName": "CaseWorkflow/DefinitionBody",
+      "source": {
+        "path": "asset.30b48027bb4458db4367c65fecbf7f51e57e5c5a019021f03b8ece86176ffffc.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "047719662671-us-east-1-c3b29f8a": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "30b48027bb4458db4367c65fecbf7f51e57e5c5a019021f03b8ece86176ffffc.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "98f62bef9320f8c0a0a7be21d7c746f069131f196f51ffe3008a6bb730b368ec": {
+      "displayName": "PortalFiles/AwsCliLayer/Code",
+      "source": {
+        "path": "asset.98f62bef9320f8c0a0a7be21d7c746f069131f196f51ffe3008a6bb730b368ec.zip",
+        "packaging": "file"
+      },
+      "destinations": {
+        "047719662671-us-east-1-142bfc0e": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "98f62bef9320f8c0a0a7be21d7c746f069131f196f51ffe3008a6bb730b368ec.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0": {
+      "displayName": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+      "source": {
+        "path": "asset.35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "047719662671-us-east-1-ff822522": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "a164b084991daff144b559d646db16fa2c966f9b16985f42ded1c93a44213e26": {
+      "displayName": "PortalFiles/Asset1",
+      "source": {
+        "path": "asset.a164b084991daff144b559d646db16fa2c966f9b16985f42ded1c93a44213e26",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "047719662671-us-east-1-588e5ffc": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "a164b084991daff144b559d646db16fa2c966f9b16985f42ded1c93a44213e26.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "ae60528d97e3906ddc344d9aa54b32fd8894b98fe4f3ca37fbe65aba5c1a1311": {
+      "displayName": "PortalFiles/Asset2",
+      "source": {
+        "path": "asset.ae60528d97e3906ddc344d9aa54b32fd8894b98fe4f3ca37fbe65aba5c1a1311",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "047719662671-us-east-1-4e71babb": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "ae60528d97e3906ddc344d9aa54b32fd8894b98fe4f3ca37fbe65aba5c1a1311.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    },
+    "ea70a826dc962ced608878569840c7b8a8a16c6430c739dfceb70bd72d867d08": {
+      "displayName": "ClaimsLab-lab Template",
+      "source": {
+        "path": "ClaimsLab-lab.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "047719662671-us-east-1-37e53a74": {
+          "bucketName": "cdk-hnb659fds-assets-047719662671-us-east-1",
+          "objectKey": "ea70a826dc962ced608878569840c7b8a8a16c6430c739dfceb70bd72d867d08.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::047719662671:role/cdk-hnb659fds-file-publishing-role-047719662671-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

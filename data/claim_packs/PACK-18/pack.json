@@ -1,0 +1,49 @@
+{
+  "packId": "PACK-18",
+  "scenario": "missing_documents",
+  "claim": {
+    "policyNumber": "P-HLT-2006",
+    "claimType": "health",
+    "claimantName": "Siddharth Kulkarni",
+    "claimantEmail": "siddharth.kulkarni@example.com",
+    "incidentDate": "2026-09-11",
+    "claimedAmount": 88600,
+    "description": "Admitted with high fever and low platelet count; treated in ward for several days.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2006",
+        "CLAIMANT_NAME": "Siddharth Kulkarni",
+        "INCIDENT_DATE": "11 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 88,600.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-856402",
+        "PATIENT_NAME": "Siddharth Kulkarni",
+        "ADMISSION_DATE": "11/09/2026",
+        "TOTAL_AMOUNT": "INR 88,600.00"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [
+      "medical_report"
+    ],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

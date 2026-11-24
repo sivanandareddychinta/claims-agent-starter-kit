@@ -1,0 +1,5730 @@
+{
+ "Description": "Claims & Case Management Agent lab - starter infrastructure",
+ "Resources": {
+  "Cases80582F3E": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "caseId",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "status",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "createdAt",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "assignee",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "slaDueAt",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "policyNumber",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "incidentDate",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "status-index",
+      "KeySchema": [
+       {
+        "AttributeName": "status",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "createdAt",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "assignee-index",
+      "KeySchema": [
+       {
+        "AttributeName": "assignee",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "slaDueAt",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "policy-index",
+      "KeySchema": [
+       {
+        "AttributeName": "policyNumber",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "incidentDate",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "caseId",
+      "KeyType": "HASH"
+     }
+    ],
+    "StreamSpecification": {
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+    },
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Cases/Resource"
+   }
+  },
+  "Policies05F61E66": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "policyNumber",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "policyNumber",
+      "KeyType": "HASH"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Policies/Resource"
+   }
+  },
+  "AdjustersFA1ECED8": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "adjusterId",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "adjusterId",
+      "KeyType": "HASH"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Adjusters/Resource"
+   }
+  },
+  "PortalBucketF34416C0": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "aws-cdk:cr-owned:cb962fb9",
+      "Value": "true"
+     },
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalBucket/Resource"
+   }
+  },
+  "PortalBucketPolicyAF0FA7F5": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "PortalBucketF34416C0"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "PortalBucketF34416C0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "PortalBucketF34416C0",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "PortalBucketF34416C0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "PortalBucketF34416C0",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "s3:GetObject",
+       "Condition": {
+        "StringEquals": {
+         "AWS:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":cloudfront::",
+            {
+             "Ref": "AWS::AccountId"
+            },
+            ":distribution/",
+            {
+             "Ref": "PortalDistribution104A9AF0"
+            }
+           ]
+          ]
+         }
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "PortalBucketF34416C0",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalBucket/Policy/Resource"
+   }
+  },
+  "PortalBucketAutoDeleteObjectsCustomResourceBC251FA1": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "PortalBucketF34416C0"
+    }
+   },
+   "DependsOn": [
+    "PortalBucketPolicyAF0FA7F5"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role"
+   }
+  },
+  "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Lambda function for auto-deleting objects in ",
+       {
+        "Ref": "PortalBucketF34416C0"
+       },
+       " S3 bucket."
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+    "aws:asset:property": "Code"
+   }
+  },
+  "PortalDistributionOrigin1S3OriginAccessControlEB064077": {
+   "Type": "AWS::CloudFront::OriginAccessControl",
+   "Properties": {
+    "OriginAccessControlConfig": {
+     "Name": "ClaimsLablabPortalDistributiOrigin1S3OriginAccessControlEB214B76",
+     "OriginAccessControlOriginType": "s3",
+     "SigningBehavior": "always",
+     "SigningProtocol": "sigv4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalDistribution/Origin1/S3OriginAccessControl/Resource"
+   }
+  },
+  "PortalDistribution104A9AF0": {
+   "Type": "AWS::CloudFront::Distribution",
+   "Properties": {
+    "DistributionConfig": {
+     "Comment": "Claims lab portal (lab)",
+     "DefaultCacheBehavior": {
+      "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad",
+      "Compress": true,
+      "TargetOriginId": "ClaimsLablabPortalDistributionOrigin1E92B4462",
+      "ViewerProtocolPolicy": "redirect-to-https"
+     },
+     "DefaultRootObject": "index.html",
+     "Enabled": true,
+     "HttpVersion": "http2",
+     "IPV6Enabled": true,
+     "Origins": [
+      {
+       "DomainName": {
+        "Fn::GetAtt": [
+         "PortalBucketF34416C0",
+         "RegionalDomainName"
+        ]
+       },
+       "Id": "ClaimsLablabPortalDistributionOrigin1E92B4462",
+       "OriginAccessControlId": {
+        "Fn::GetAtt": [
+         "PortalDistributionOrigin1S3OriginAccessControlEB064077",
+         "Id"
+        ]
+       },
+       "S3OriginConfig": {
+        "OriginAccessIdentity": ""
+       }
+      }
+     ],
+     "PriceClass": "PriceClass_100"
+    },
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalDistribution/Resource"
+   }
+  },
+  "DocsBucketECEA003F": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "CorsConfiguration": {
+     "CorsRules": [
+      {
+       "AllowedHeaders": [
+        "*"
+       ],
+       "AllowedMethods": [
+        "PUT",
+        "GET"
+       ],
+       "AllowedOrigins": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "https://",
+           {
+            "Fn::GetAtt": [
+             "PortalDistribution104A9AF0",
+             "DomainName"
+            ]
+           }
+          ]
+         ]
+        },
+        "http://localhost:5173"
+       ],
+       "MaxAge": 3000
+      }
+     ]
+    },
+    "LifecycleConfiguration": {
+     "Rules": [
+      {
+       "Id": "tier-case-files",
+       "Prefix": "cases/",
+       "Status": "Enabled",
+       "Transitions": [
+        {
+         "StorageClass": "INTELLIGENT_TIERING",
+         "TransitionInDays": 30
+        }
+       ]
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "aws-cdk:auto-delete-objects",
+      "Value": "true"
+     },
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocsBucket/Resource"
+   }
+  },
+  "DocsBucketPolicy7BCF1FB7": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "DocsBucketECEA003F"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocsBucketECEA003F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocsBucketECEA003F",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:PutBucketPolicy",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*"
+       ],
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+          "Arn"
+         ]
+        }
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocsBucketECEA003F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocsBucketECEA003F",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocsBucket/Policy/Resource"
+   }
+  },
+  "DocsBucketAutoDeleteObjectsCustomResourceADA97380": {
+   "Type": "Custom::S3AutoDeleteObjects",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F",
+      "Arn"
+     ]
+    },
+    "BucketName": {
+     "Ref": "DocsBucketECEA003F"
+    }
+   },
+   "DependsOn": [
+    "DocsBucketPolicy7BCF1FB7"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocsBucket/AutoDeleteObjectsCustomResource/Default"
+   }
+  },
+  "ActionHistoryBucket2A160DFF": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "ObjectLockConfiguration": {
+     "ObjectLockEnabled": "Enabled",
+     "Rule": {
+      "DefaultRetention": {
+       "Days": 1,
+       "Mode": "GOVERNANCE"
+      }
+     }
+    },
+    "ObjectLockEnabled": true,
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    },
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "VersioningConfiguration": {
+     "Status": "Enabled"
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistoryBucket/Resource"
+   }
+  },
+  "ActionHistoryBucketPolicyD22EB43A": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "ActionHistoryBucket2A160DFF"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:*",
+       "Condition": {
+        "Bool": {
+         "aws:SecureTransport": "false"
+        }
+       },
+       "Effect": "Deny",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ActionHistoryBucket2A160DFF",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ActionHistoryBucket2A160DFF",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistoryBucket/Policy/Resource"
+   }
+  },
+  "UserPool6BA7E5F2": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": true
+    },
+    "AliasAttributes": [
+     "email"
+    ],
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 10,
+      "RequireSymbols": false
+     }
+    },
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolTags": {
+     "lab-id": "lab",
+     "project": "claims-agent-lab"
+    },
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/UserPool/Resource"
+   }
+  },
+  "UserPoolDomainD0EA232A": {
+   "Type": "AWS::Cognito::UserPoolDomain",
+   "Properties": {
+    "Domain": "claims-lab-lab-047719662671",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/UserPool/Domain/Resource"
+   }
+  },
+  "UserPoolPortalClientF86287D1": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 60,
+    "AllowedOAuthFlows": [
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "openid",
+     "email",
+     "profile"
+    ],
+    "CallbackURLs": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "https://",
+        {
+         "Fn::GetAtt": [
+          "PortalDistribution104A9AF0",
+          "DomainName"
+         ]
+        },
+        "/"
+       ]
+      ]
+     },
+     "http://localhost:5173/"
+    ],
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "IdTokenValidity": 60,
+    "LogoutURLs": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "https://",
+        {
+         "Fn::GetAtt": [
+          "PortalDistribution104A9AF0",
+          "DomainName"
+         ]
+        },
+        "/"
+       ]
+      ]
+     },
+     "http://localhost:5173/"
+    ],
+    "PreventUserExistenceErrors": "ENABLED",
+    "RefreshTokenValidity": 1440,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes",
+     "IdToken": "minutes",
+     "RefreshToken": "minutes"
+    },
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/UserPool/PortalClient/Resource"
+   }
+  },
+  "GroupAdjusters": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Work cases",
+    "GroupName": "adjusters",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/GroupAdjusters"
+   }
+  },
+  "GroupApprovers": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "Approve, reject or request more information",
+    "GroupName": "approvers",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/GroupApprovers"
+   }
+  },
+  "GroupSupervisors": {
+   "Type": "AWS::Cognito::UserPoolGroup",
+   "Properties": {
+    "Description": "See everything; receive SLA escalations",
+    "GroupName": "supervisors",
+    "UserPoolId": {
+     "Ref": "UserPool6BA7E5F2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/GroupSupervisors"
+   }
+  },
+  "SlaEscalationLogs383C9205": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SlaEscalationLogs/Resource"
+   }
+  },
+  "SlaEscalationServiceRole0FC20E30": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SlaEscalation/ServiceRole/Resource"
+   }
+  },
+  "SlaEscalationServiceRoleDefaultPolicy820AFB32": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ses:SendEmail",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ses:us-east-1:047719662671:identity/*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SlaEscalationServiceRoleDefaultPolicy820AFB32",
+    "Roles": [
+     {
+      "Ref": "SlaEscalationServiceRole0FC20E30"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SlaEscalation/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "SlaEscalationCCC58A94": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): SlaEscalation",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "workflow.sla_escalation.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "SlaEscalationLogs383C9205"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "SlaEscalationServiceRole0FC20E30",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "SlaEscalationServiceRoleDefaultPolicy820AFB32",
+    "SlaEscalationServiceRole0FC20E30"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SlaEscalation/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "SchedulerRole59E73443": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "scheduler.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SchedulerRole/Resource"
+   }
+  },
+  "SchedulerRoleDefaultPolicy66F774B8": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "SlaEscalationCCC58A94",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "SlaEscalationCCC58A94",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SchedulerRoleDefaultPolicy66F774B8",
+    "Roles": [
+     {
+      "Ref": "SchedulerRole59E73443"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SchedulerRole/DefaultPolicy/Resource"
+   }
+  },
+  "SlaScheduleGroup": {
+   "Type": "AWS::Scheduler::ScheduleGroup",
+   "Properties": {
+    "Name": "claims-lab-lab-sla",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/SlaScheduleGroup"
+   }
+  },
+  "IntakeToolsLogs74FAAC2D": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/IntakeToolsLogs/Resource"
+   }
+  },
+  "IntakeToolsServiceRoleD144F09F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/IntakeTools/ServiceRole/Resource"
+   }
+  },
+  "IntakeToolsServiceRoleDefaultPolicy12E676B2": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Policies05F61E66",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Policies05F61E66",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "IntakeToolsServiceRoleDefaultPolicy12E676B2",
+    "Roles": [
+     {
+      "Ref": "IntakeToolsServiceRoleD144F09F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/IntakeTools/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "IntakeTools55EA44B8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): IntakeTools",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "tools.intake_tools.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "IntakeToolsLogs74FAAC2D"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "IntakeToolsServiceRoleD144F09F",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "IntakeToolsServiceRoleDefaultPolicy12E676B2",
+    "IntakeToolsServiceRoleD144F09F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/IntakeTools/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "DocumentToolsLogs7BA8DC43": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocumentToolsLogs/Resource"
+   }
+  },
+  "DocumentToolsServiceRoleFB9DEEFE": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocumentTools/ServiceRole/Resource"
+   }
+  },
+  "DocumentToolsServiceRoleDefaultPolicy4B95D0DA": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Policies05F61E66",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Policies05F61E66",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocsBucketECEA003F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocsBucketECEA003F",
+             "Arn"
+            ]
+           },
+           "/cases/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "textract:DetectDocumentText",
+        "textract:AnalyzeDocument"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "bedrock:InvokeModel",
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:bedrock:*::foundation-model/*",
+        "arn:aws:bedrock:us-east-1:047719662671:inference-profile/*"
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "DocumentToolsServiceRoleDefaultPolicy4B95D0DA",
+    "Roles": [
+     {
+      "Ref": "DocumentToolsServiceRoleFB9DEEFE"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocumentTools/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "DocumentTools25F20EFF": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): DocumentTools",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": "",
+      "CLASSIFIER_MODEL_ID": "us.amazon.nova-lite-v1:0"
+     }
+    },
+    "Handler": "tools.document_tools.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "DocumentToolsLogs7BA8DC43"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "DocumentToolsServiceRoleFB9DEEFE",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "DocumentToolsServiceRoleDefaultPolicy4B95D0DA",
+    "DocumentToolsServiceRoleFB9DEEFE"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/DocumentTools/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CaseToolsLogsBFC8BAD6": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseToolsLogs/Resource"
+   }
+  },
+  "CaseToolsServiceRole818080FB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseTools/ServiceRole/Resource"
+   }
+  },
+  "CaseToolsServiceRoleDefaultPolicyCABDF709": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CaseToolsServiceRoleDefaultPolicyCABDF709",
+    "Roles": [
+     {
+      "Ref": "CaseToolsServiceRole818080FB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseTools/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CaseTools9FDD4706": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): CaseTools",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "tools.case_tools.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "CaseToolsLogsBFC8BAD6"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "CaseToolsServiceRole818080FB",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CaseToolsServiceRoleDefaultPolicyCABDF709",
+    "CaseToolsServiceRole818080FB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseTools/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "RoutingToolsLogs202DADD9": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/RoutingToolsLogs/Resource"
+   }
+  },
+  "RoutingToolsServiceRoleDDB49E4F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/RoutingTools/ServiceRole/Resource"
+   }
+  },
+  "RoutingToolsServiceRoleDefaultPolicyDB915795": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RoutingToolsServiceRoleDefaultPolicyDB915795",
+    "Roles": [
+     {
+      "Ref": "RoutingToolsServiceRoleDDB49E4F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/RoutingTools/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "RoutingToolsB0E30BEB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): RoutingTools",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "tools.routing_tools.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "RoutingToolsLogs202DADD9"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "RoutingToolsServiceRoleDDB49E4F",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "RoutingToolsServiceRoleDefaultPolicyDB915795",
+    "RoutingToolsServiceRoleDDB49E4F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/RoutingTools/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CommsToolsLogs34E2FB3D": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CommsToolsLogs/Resource"
+   }
+  },
+  "CommsToolsServiceRoleCE5A134F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CommsTools/ServiceRole/Resource"
+   }
+  },
+  "CommsToolsServiceRoleDefaultPolicyC4E21DD8": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "scheduler:CreateSchedule",
+       "Effect": "Allow",
+       "Resource": "arn:aws:scheduler:us-east-1:047719662671:schedule/claims-lab-lab-sla/*"
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "SchedulerRole59E73443",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "ses:SendEmail",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ses:us-east-1:047719662671:identity/*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CommsToolsServiceRoleDefaultPolicyC4E21DD8",
+    "Roles": [
+     {
+      "Ref": "CommsToolsServiceRoleCE5A134F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CommsTools/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CommsTools0F50BB41": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): CommsTools",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": "",
+      "SCHEDULE_GROUP": "claims-lab-lab-sla",
+      "SLA_TARGET_ARN": {
+       "Fn::GetAtt": [
+        "SlaEscalationCCC58A94",
+        "Arn"
+       ]
+      },
+      "SCHEDULER_ROLE_ARN": {
+       "Fn::GetAtt": [
+        "SchedulerRole59E73443",
+        "Arn"
+       ]
+      },
+      "SLA_MINUTES_OVERRIDE": "0"
+     }
+    },
+    "Handler": "tools.comms_tools.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "CommsToolsLogs34E2FB3D"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "CommsToolsServiceRoleCE5A134F",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "CommsToolsServiceRoleDefaultPolicyC4E21DD8",
+    "CommsToolsServiceRoleCE5A134F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CommsTools/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "InvokeSupervisorLogs7CF22F5D": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/InvokeSupervisorLogs/Resource"
+   }
+  },
+  "InvokeSupervisorServiceRole312A87E2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/InvokeSupervisor/ServiceRole/Resource"
+   }
+  },
+  "InvokeSupervisorServiceRoleDefaultPolicy733D3485": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "ssm:GetParameter",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ssm:us-east-1:047719662671:parameter/claims-lab/lab/agent/*"
+      },
+      {
+       "Action": "bedrock-agentcore:InvokeAgentRuntime",
+       "Effect": "Allow",
+       "Resource": "arn:aws:bedrock-agentcore:us-east-1:047719662671:runtime/*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "InvokeSupervisorServiceRoleDefaultPolicy733D3485",
+    "Roles": [
+     {
+      "Ref": "InvokeSupervisorServiceRole312A87E2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/InvokeSupervisor/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "InvokeSupervisorFDAD03C0": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): InvokeSupervisor",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": "",
+      "RUNTIME_ARN_PARAM": "/claims-lab/lab/agent/runtime-arn",
+      "QUALIFIER_PARAM": "/claims-lab/lab/agent/qualifier"
+     }
+    },
+    "Handler": "workflow.invoke_supervisor.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "InvokeSupervisorLogs7CF22F5D"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "InvokeSupervisorServiceRole312A87E2",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "InvokeSupervisorServiceRoleDefaultPolicy733D3485",
+    "InvokeSupervisorServiceRole312A87E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/InvokeSupervisor/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "HumanTaskLogs1C9A47DB": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/HumanTaskLogs/Resource"
+   }
+  },
+  "HumanTaskServiceRoleF596793D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/HumanTask/ServiceRole/Resource"
+   }
+  },
+  "HumanTaskServiceRoleDefaultPolicyF075AB87": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ses:SendEmail",
+       "Effect": "Allow",
+       "Resource": "arn:aws:ses:us-east-1:047719662671:identity/*"
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "HumanTaskServiceRoleDefaultPolicyF075AB87",
+    "Roles": [
+     {
+      "Ref": "HumanTaskServiceRoleF596793D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/HumanTask/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "HumanTask68A21437": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): HumanTask",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "workflow.human_task.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "HumanTaskLogs1C9A47DB"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "HumanTaskServiceRoleF596793D",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "HumanTaskServiceRoleDefaultPolicyF075AB87",
+    "HumanTaskServiceRoleF596793D"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/HumanTask/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "FinalizeCaseLogsB77A24CB": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/FinalizeCaseLogs/Resource"
+   }
+  },
+  "FinalizeCaseServiceRoleA80DFA20": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/FinalizeCase/ServiceRole/Resource"
+   }
+  },
+  "FinalizeCaseServiceRoleDefaultPolicyA3FD8035": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "FinalizeCaseServiceRoleDefaultPolicyA3FD8035",
+    "Roles": [
+     {
+      "Ref": "FinalizeCaseServiceRoleA80DFA20"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/FinalizeCase/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "FinalizeCaseDFA109E9": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): FinalizeCase",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "workflow.finalize_case.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "FinalizeCaseLogsB77A24CB"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "FinalizeCaseServiceRoleA80DFA20",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "FinalizeCaseServiceRoleDefaultPolicyA3FD8035",
+    "FinalizeCaseServiceRoleA80DFA20"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/FinalizeCase/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "PortalApiLogsA9A7DAC0": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalApiLogs/Resource"
+   }
+  },
+  "PortalApiServiceRole9234DE72": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalApi/ServiceRole/Resource"
+   }
+  },
+  "PortalApiServiceRoleDefaultPolicyDB125559": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AdjustersFA1ECED8",
+          "Arn"
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocsBucketECEA003F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocsBucketECEA003F",
+             "Arn"
+            ]
+           },
+           "/cases/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "CaseWorkflow862DE16C"
+       }
+      },
+      {
+       "Action": [
+        "states:SendTaskSuccess",
+        "states:SendTaskFailure",
+        "states:SendTaskHeartbeat"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "CaseWorkflow862DE16C"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "PortalApiServiceRoleDefaultPolicyDB125559",
+    "Roles": [
+     {
+      "Ref": "PortalApiServiceRole9234DE72"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalApi/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "PortalApiF0FAB5E8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): PortalApi",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": "",
+      "STATE_MACHINE_ARN": {
+       "Ref": "CaseWorkflow862DE16C"
+      }
+     }
+    },
+    "Handler": "api.portal_api.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "PortalApiLogsA9A7DAC0"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "PortalApiServiceRole9234DE72",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "PortalApiServiceRoleDefaultPolicyDB125559",
+    "PortalApiServiceRole9234DE72"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalApi/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ActionHistoryLogsD87E9471": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistoryLogs/Resource"
+   }
+  },
+  "ActionHistoryServiceRole9FF82C58": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistory/ServiceRole/Resource"
+   }
+  },
+  "ActionHistoryServiceRoleDefaultPolicyC081A069": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "ActionHistoryBucket2A160DFF",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": "dynamodb:ListStreams",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "dynamodb:DescribeStream",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "Cases80582F3E",
+         "StreamArn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ActionHistoryServiceRoleDefaultPolicyC081A069",
+    "Roles": [
+     {
+      "Ref": "ActionHistoryServiceRole9FF82C58"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistory/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ActionHistory8509CFDC": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): ActionHistory",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": "",
+      "HISTORY_BUCKET": {
+       "Ref": "ActionHistoryBucket2A160DFF"
+      }
+     }
+    },
+    "Handler": "history.action_history.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "ActionHistoryLogsD87E9471"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ActionHistoryServiceRole9FF82C58",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ActionHistoryServiceRoleDefaultPolicyC081A069",
+    "ActionHistoryServiceRole9FF82C58"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistory/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ActionHistoryDynamoDBEventSourceClaimsLablabCasesD5803C1D5B37DDEB": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "BatchSize": 25,
+    "BisectBatchOnFunctionError": true,
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "Cases80582F3E",
+      "StreamArn"
+     ]
+    },
+    "FunctionName": {
+     "Ref": "ActionHistory8509CFDC"
+    },
+    "MaximumRetryAttempts": 3,
+    "StartingPosition": "TRIM_HORIZON",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ActionHistory/DynamoDBEventSource:ClaimsLablabCasesD5803C1D/Resource"
+   }
+  },
+  "ClaimsEvaluatorsLogsEA234E5A": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ClaimsEvaluatorsLogs/Resource"
+   }
+  },
+  "ClaimsEvaluatorsServiceRoleC9E2A7E0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ClaimsEvaluators/ServiceRole/Resource"
+   }
+  },
+  "ClaimsEvaluatorsServiceRoleDefaultPolicy4F202AD2": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:Query",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "Cases80582F3E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "Cases80582F3E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DocsBucketECEA003F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "DocsBucketECEA003F",
+             "Arn"
+            ]
+           },
+           "/sample-packs/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClaimsEvaluatorsServiceRoleDefaultPolicy4F202AD2",
+    "Roles": [
+     {
+      "Ref": "ClaimsEvaluatorsServiceRoleC9E2A7E0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ClaimsEvaluators/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClaimsEvaluators9787382A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa.zip"
+    },
+    "Description": "Claims lab (lab): ClaimsEvaluators",
+    "Environment": {
+     "Variables": {
+      "CASES_TABLE": {
+       "Ref": "Cases80582F3E"
+      },
+      "POLICIES_TABLE": {
+       "Ref": "Policies05F61E66"
+      },
+      "ADJUSTERS_TABLE": {
+       "Ref": "AdjustersFA1ECED8"
+      },
+      "DOCS_BUCKET": {
+       "Ref": "DocsBucketECEA003F"
+      },
+      "PORTAL_URL": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "SENDER_EMAIL": "",
+      "NOTIFY_OVERRIDE_EMAIL": ""
+     }
+    },
+    "Handler": "evaluation.claims_evaluators.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "ClaimsEvaluatorsLogsEA234E5A"
+     }
+    },
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClaimsEvaluatorsServiceRoleC9E2A7E0",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 120
+   },
+   "DependsOn": [
+    "ClaimsEvaluatorsServiceRoleDefaultPolicy4F202AD2",
+    "ClaimsEvaluatorsServiceRoleC9E2A7E0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ClaimsEvaluators/Resource",
+    "aws:asset:path": "asset.81332e53b0be42b741941414cf8dad007b5d1f5044067c1a485bc4703a57d3aa",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClaimsEvaluatorsAgentCoreEvaluationsA31FC5B6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClaimsEvaluators9787382A",
+      "Arn"
+     ]
+    },
+    "Principal": "bedrock-agentcore.amazonaws.com",
+    "SourceAccount": "047719662671"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/ClaimsEvaluators/AgentCoreEvaluations"
+   }
+  },
+  "RuntimeArnParamC22C9444": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "AgentCore Runtime ARN of the supervisor",
+    "Name": "/claims-lab/lab/agent/runtime-arn",
+    "Tags": {
+     "lab-id": "lab",
+     "project": "claims-agent-lab"
+    },
+    "Type": "String",
+    "Value": "not-set"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/RuntimeArnParam/Resource"
+   }
+  },
+  "QualifierParam98076C90": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Description": "Runtime endpoint the workflow calls (DEFAULT, prod, canary)",
+    "Name": "/claims-lab/lab/agent/qualifier",
+    "Tags": {
+     "lab-id": "lab",
+     "project": "claims-agent-lab"
+    },
+    "Type": "String",
+    "Value": "DEFAULT"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/QualifierParam/Resource"
+   }
+  },
+  "WorkflowLogs6DD5EEB0": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/WorkflowLogs/Resource"
+   }
+  },
+  "CaseWorkflowRole8D89608F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Condition": {
+        "ArnLike": {
+         "aws:SourceArn": {
+          "Fn::Join": [
+           "",
+           [
+            "arn:",
+            {
+             "Ref": "AWS::Partition"
+            },
+            ":states:us-east-1:047719662671:stateMachine:*"
+           ]
+          ]
+         }
+        },
+        "StringEquals": {
+         "aws:SourceAccount": "047719662671"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseWorkflow/Role/Resource"
+   }
+  },
+  "CaseWorkflowRoleDefaultPolicy5C53BD24": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogDelivery",
+        "logs:GetLogDelivery",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "InvokeSupervisorFDAD03C0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "InvokeSupervisorFDAD03C0",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "HumanTask68A21437",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "HumanTask68A21437",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "FinalizeCaseDFA109E9",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "FinalizeCaseDFA109E9",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CaseWorkflowRoleDefaultPolicy5C53BD24",
+    "Roles": [
+     {
+      "Ref": "CaseWorkflowRole8D89608F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseWorkflow/Role/DefaultPolicy/Resource"
+   }
+  },
+  "CaseWorkflow862DE16C": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionS3Location": {
+     "Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "Key": "30b48027bb4458db4367c65fecbf7f51e57e5c5a019021f03b8ece86176ffffc.json"
+    },
+    "DefinitionSubstitutions": {
+     "InvokeSupervisorArn": {
+      "Fn::GetAtt": [
+       "InvokeSupervisorFDAD03C0",
+       "Arn"
+      ]
+     },
+     "HumanTaskArn": {
+      "Fn::GetAtt": [
+       "HumanTask68A21437",
+       "Arn"
+      ]
+     },
+     "FinalizeCaseArn": {
+      "Fn::GetAtt": [
+       "FinalizeCaseDFA109E9",
+       "Arn"
+      ]
+     }
+    },
+    "LoggingConfiguration": {
+     "Destinations": [
+      {
+       "CloudWatchLogsLogGroup": {
+        "LogGroupArn": {
+         "Fn::GetAtt": [
+          "WorkflowLogs6DD5EEB0",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Level": "ERROR"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "CaseWorkflowRole8D89608F",
+      "Arn"
+     ]
+    },
+    "StateMachineType": "STANDARD",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "DependsOn": [
+    "CaseWorkflowRoleDefaultPolicy5C53BD24",
+    "CaseWorkflowRole8D89608F"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CaseWorkflow/Resource"
+   }
+  },
+  "PortalHttpApiF7E56978": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "authorization",
+      "content-type"
+     ],
+     "AllowMethods": [
+      "GET",
+      "POST",
+      "OPTIONS"
+     ],
+     "AllowOrigins": [
+      {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Fn::GetAtt": [
+           "PortalDistribution104A9AF0",
+           "DomainName"
+          ]
+         }
+        ]
+       ]
+      },
+      "http://localhost:5173"
+     ],
+     "MaxAge": 3600
+    },
+    "Name": "PortalHttpApi",
+    "ProtocolType": "HTTP",
+    "Tags": {
+     "lab-id": "lab",
+     "project": "claims-agent-lab"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/Resource"
+   }
+  },
+  "PortalHttpApiDefaultStage84866E5D": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AutoDeploy": true,
+    "DefaultRouteSettings": {
+     "ThrottlingBurstLimit": 40,
+     "ThrottlingRateLimit": 20
+    },
+    "StageName": "$default",
+    "Tags": {
+     "lab-id": "lab",
+     "project": "claims-agent-lab"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/DefaultStage/Resource"
+   }
+  },
+  "PortalHttpApiGETmePortalApiIntegrationF796BE11": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--me/PortalApiIntegration/Resource"
+   }
+  },
+  "PortalHttpApiGETmePortalApiIntegrationPermission593B1AD7": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/me"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--me/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiGETmeAD377094": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "GET /me",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--me/Resource"
+   }
+  },
+  "PortalHttpApiCognitoAuthorizer6072556D": {
+   "Type": "AWS::ApiGatewayV2::Authorizer",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizerType": "JWT",
+    "IdentitySource": [
+     "$request.header.Authorization"
+    ],
+    "JwtConfiguration": {
+     "Audience": [
+      {
+       "Ref": "UserPoolPortalClientF86287D1"
+      }
+     ],
+     "Issuer": {
+      "Fn::Join": [
+       "",
+       [
+        "https://cognito-idp.us-east-1.amazonaws.com/",
+        {
+         "Ref": "UserPool6BA7E5F2"
+        }
+       ]
+      ]
+     }
+    },
+    "Name": "CognitoAuthorizer"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/CognitoAuthorizer/Resource"
+   }
+  },
+  "PortalHttpApiGETclaimsPortalApiIntegrationPermission021ADEED": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--claims/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiGETclaims41878DE6": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "GET /claims",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--claims/Resource"
+   }
+  },
+  "PortalHttpApiPOSTclaimsPortalApiIntegrationPermissionF81BC8CF": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiPOSTclaimsB7D864CE": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "POST /claims",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims/Resource"
+   }
+  },
+  "PortalHttpApiGETclaimscaseIdPortalApiIntegrationPermission2A726A58": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims/{caseId}"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--claims--{caseId}/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiGETclaimscaseIdED2CF2A1": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "GET /claims/{caseId}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/GET--claims--{caseId}/Resource"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIdsubmitPortalApiIntegrationPermission7669EC63": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims/{caseId}/submit"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--submit/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIdsubmit9525EDF7": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "POST /claims/{caseId}/submit",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--submit/Resource"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddocumentsPortalApiIntegrationPermission0D62503C": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims/{caseId}/documents"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddocuments96ECD235": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "POST /claims/{caseId}/documents",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents/Resource"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddocumentscompletePortalApiIntegrationPermission4752AC19": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims/{caseId}/documents/complete"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents--complete/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddocumentscomplete33323334": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "POST /claims/{caseId}/documents/complete",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents--complete/Resource"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddecisionPortalApiIntegrationPermission921DB60E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "PortalApiF0FAB5E8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:047719662671:",
+       {
+        "Ref": "PortalHttpApiF7E56978"
+       },
+       "/*/*/claims/{caseId}/decision"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--decision/PortalApiIntegration-Permission"
+   }
+  },
+  "PortalHttpApiPOSTclaimscaseIddecision473C1688": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "PortalHttpApiF7E56978"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    "RouteKey": "POST /claims/{caseId}/decision",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--decision/Resource"
+   }
+  },
+  "PortalFilesAwsCliLayer89FDF2D6": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "Content": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "98f62bef9320f8c0a0a7be21d7c746f069131f196f51ffe3008a6bb730b368ec.zip"
+    },
+    "Description": "/opt/awscli/aws"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalFiles/AwsCliLayer/Resource",
+    "aws:asset:path": "asset.98f62bef9320f8c0a0a7be21d7c746f069131f196f51ffe3008a6bb730b368ec.zip",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
+  "PortalFilesCustomResourceBFFBBBDA": {
+   "Type": "Custom::CDKBucketDeployment",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+      "Arn"
+     ]
+    },
+    "SourceBucketNames": [
+     "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "cdk-hnb659fds-assets-047719662671-us-east-1"
+    ],
+    "SourceObjectKeys": [
+     "a164b084991daff144b559d646db16fa2c966f9b16985f42ded1c93a44213e26.zip",
+     "ae60528d97e3906ddc344d9aa54b32fd8894b98fe4f3ca37fbe65aba5c1a1311.zip"
+    ],
+    "SourceMarkers": [
+     {},
+     {
+      "<<marker:0xbaba:0>>": {
+       "Fn::Join": [
+        "",
+        [
+         "\"",
+         {
+          "Fn::GetAtt": [
+           "PortalHttpApiF7E56978",
+           "ApiEndpoint"
+          ]
+         },
+         "\""
+        ]
+       ]
+      },
+      "<<marker:0xbaba:1>>": {
+       "Fn::Join": [
+        "",
+        [
+         "\"",
+         {
+          "Ref": "UserPool6BA7E5F2"
+         },
+         "\""
+        ]
+       ]
+      },
+      "<<marker:0xbaba:2>>": {
+       "Fn::Join": [
+        "",
+        [
+         "\"",
+         {
+          "Ref": "UserPoolPortalClientF86287D1"
+         },
+         "\""
+        ]
+       ]
+      },
+      "<<marker:0xbaba:3>>": {
+       "Fn::Join": [
+        "",
+        [
+         "\"https://",
+         {
+          "Ref": "UserPoolDomainD0EA232A"
+         },
+         ".auth.us-east-1.amazoncognito.com\""
+        ]
+       ]
+      }
+     }
+    ],
+    "SourceMarkersConfig": [
+     {},
+     {}
+    ],
+    "DestinationBucketName": {
+     "Ref": "PortalBucketF34416C0"
+    },
+    "WaitForDistributionInvalidation": true,
+    "Prune": true,
+    "DistributionId": {
+     "Ref": "PortalDistribution104A9AF0"
+    },
+    "DistributionPaths": [
+     "/*"
+    ],
+    "OutputObjectKeys": true
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/PortalFiles/CustomResource/Default"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::cdk-hnb659fds-assets-047719662671-us-east-1"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":s3:::cdk-hnb659fds-assets-047719662671-us-east-1/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "s3:GetObject*",
+        "s3:GetBucket*",
+        "s3:List*",
+        "s3:DeleteObject*",
+        "s3:PutObject",
+        "s3:PutObjectLegalHold",
+        "s3:PutObjectRetention",
+        "s3:PutObjectTagging",
+        "s3:PutObjectVersionTagging",
+        "s3:Abort*"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "PortalBucketF34416C0",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "PortalBucketF34416C0",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "cloudfront:GetInvalidation",
+        "cloudfront:CreateInvalidation"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+    "Roles": [
+     {
+      "Ref": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-047719662671-us-east-1",
+     "S3Key": "35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AWS_CA_BUNDLE": "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
+     }
+    },
+    "Handler": "index.handler",
+    "Layers": [
+     {
+      "Ref": "PortalFilesAwsCliLayer89FDF2D6"
+     }
+    ],
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.13",
+    "Tags": [
+     {
+      "Key": "lab-id",
+      "Value": "lab"
+     },
+     {
+      "Key": "project",
+      "Value": "claims-agent-lab"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
+    "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+    "aws:asset:path": "asset.35328da138f26fbd9160297abc9a2522d93dbf75878cd5114a9c050419fc1ce0",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GatewayInvokeToolsPolicyE4C420F7": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "Lets the claims lab AgentCore Gateway invoke the tool Lambdas",
+    "Path": "/",
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "IntakeTools55EA44B8",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "DocumentTools25F20EFF",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "CaseTools9FDD4706",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "RoutingToolsB0E30BEB",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "CommsTools0F50BB41",
+          "Arn"
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/GatewayInvokeToolsPolicy/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/6VTTW8TMRD9Lc3ZNbQBIXFLN3xJjRploReEIsc72UzrtVeecUJY+b8je7NJoPRQcfJ7bz707Blfy+t3b+XrC7WjS109Xhpcya5kpR+F2tGyq/ZWNa5aye6rWhkQxdpmEAWNZXcT9CNwEnv0vRs1+BPt6P3ovGHqRGOZQyT71ElgNwUDDHerB9BMoyj+q/qH6ENzZ1DvT556/gJnfUHJiqEB+0JjT4sHXzeKIAptXKjW3lmW3RSJPa4Co7OiHN95rNFOtAaiwln2zqRbPCOfF0ehXW2Rney+Efi561OOeABT1yi056GDMtDCIFg+T3iqfPIutFEYV5Psbl2deUoYcBRGNatKye5jsDpfrljbI/6wBculC17DTLUt2jqF/63OwTdIdGhxq/bg78FnXqKtDbA7No4CVSO7heu3NJ+nXTigmbKqhuqk/yGkpV52igiY5CQdooLWuH0a5WHA06MQBekNVMGAl8XalgfSvwdRk/6RR1vPlVcNMPjsYyBREEO7Ppin/OkYZkpv0OYLnPMoVIu1Ytip/fZadp+Z20mLKS0diZas6qGuhiwtXOAefbEMtVfDLP6ip7xJ4I3z+Kv3emIxigVQno4oArFrTnRtnwnNvdtiBT4tvsivmaylyfb7sTRpnku1I21QTnZUGMwjzlsfuA0cxXzPG2dfjeXVWF69uXggxEsfLGMDctGfvwGYyQ1owwQAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "ClaimsLab-lab/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "PortalUrl": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Fn::GetAtt": [
+        "PortalDistribution104A9AF0",
+        "DomainName"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "ApiUrl": {
+   "Value": {
+    "Fn::GetAtt": [
+     "PortalHttpApiF7E56978",
+     "ApiEndpoint"
+    ]
+   }
+  },
+  "UserPoolId": {
+   "Value": {
+    "Ref": "UserPool6BA7E5F2"
+   }
+  },
+  "UserPoolClientId": {
+   "Value": {
+    "Ref": "UserPoolPortalClientF86287D1"
+   }
+  },
+  "CognitoDomain": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "UserPoolDomainD0EA232A"
+      },
+      ".auth.us-east-1.amazoncognito.com"
+     ]
+    ]
+   }
+  },
+  "CasesTable": {
+   "Value": {
+    "Ref": "Cases80582F3E"
+   }
+  },
+  "PoliciesTable": {
+   "Value": {
+    "Ref": "Policies05F61E66"
+   }
+  },
+  "AdjustersTable": {
+   "Value": {
+    "Ref": "AdjustersFA1ECED8"
+   }
+  },
+  "DocumentsBucket": {
+   "Value": {
+    "Ref": "DocsBucketECEA003F"
+   }
+  },
+  "HistoryBucket": {
+   "Value": {
+    "Ref": "ActionHistoryBucket2A160DFF"
+   }
+  },
+  "StateMachineArn": {
+   "Value": {
+    "Ref": "CaseWorkflow862DE16C"
+   }
+  },
+  "GatewayInvokePolicyArn": {
+   "Value": {
+    "Ref": "GatewayInvokeToolsPolicyE4C420F7"
+   }
+  },
+  "EvaluatorFunctionArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ClaimsEvaluators9787382A",
+     "Arn"
+    ]
+   }
+  },
+  "ParamPrefix": {
+   "Value": "/claims-lab/lab"
+  },
+  "KitVariant": {
+   "Value": "learner"
+  },
+  "IntakeToolsArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "IntakeTools55EA44B8",
+     "Arn"
+    ]
+   }
+  },
+  "DocumentToolsArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "DocumentTools25F20EFF",
+     "Arn"
+    ]
+   }
+  },
+  "CaseToolsArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CaseTools9FDD4706",
+     "Arn"
+    ]
+   }
+  },
+  "RoutingToolsArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RoutingToolsB0E30BEB",
+     "Arn"
+    ]
+   }
+  },
+  "CommsToolsArn": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CommsTools0F50BB41",
+     "Arn"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

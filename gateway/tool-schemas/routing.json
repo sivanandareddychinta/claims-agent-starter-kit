@@ -1,0 +1,64 @@
+[
+  {
+    "name": "getWorkload",
+    "description": "List adjusters and approvers who can take this case (region, claim type, approval limit), least busy first.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  },
+  {
+    "name": "assignCase",
+    "description": "Assign the case to an adjuster and an approver. Rejects approvers whose approval limit is below the claimed amount. Moves the case to ASSIGNED.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "adjusterId": {
+          "type": "string",
+          "description": "Adjuster ID from getWorkload"
+        },
+        "approverId": {
+          "type": "string",
+          "description": "Approver ID from getWorkload"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why these people were chosen"
+        }
+      },
+      "required": [
+        "caseId",
+        "adjusterId",
+        "approverId"
+      ]
+    }
+  },
+  {
+    "name": "requestApproval",
+    "description": "Mark an ASSIGNED case ready for the approver's decision. It does not approve anything; a person decides in the portal.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  }
+]

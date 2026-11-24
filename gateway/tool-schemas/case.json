@@ -1,0 +1,81 @@
+[
+  {
+    "name": "getCase",
+    "description": "Get the case record: claim details, status, flags, validation results, summary, assignment and recent timeline.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  },
+  {
+    "name": "getDocuments",
+    "description": "List the documents on a case with their IDs, type, confidence, extracted fields and a short text excerpt.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        }
+      },
+      "required": [
+        "caseId"
+      ]
+    }
+  },
+  {
+    "name": "saveSummary",
+    "description": "Save the structured case summary. Moves the case to SUMMARIZED.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "facts": {
+          "type": "string",
+          "description": "What happened and what is claimed, in 3-6 sentences"
+        },
+        "evidence": {
+          "type": "array",
+          "description": "Evidence found, one item per document or fact",
+          "items": {
+            "type": "string"
+          }
+        },
+        "missingInformation": {
+          "type": "array",
+          "description": "Every missing document or unresolved question",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "description": "Flags such as out of policy, possible duplicate, name or amount mismatch, suspicious document",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nextAction": {
+          "type": "string",
+          "description": "The single recommended next action for the adjuster"
+        }
+      },
+      "required": [
+        "caseId",
+        "facts",
+        "nextAction"
+      ]
+    }
+  }
+]

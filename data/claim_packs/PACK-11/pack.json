@@ -1,0 +1,52 @@
+{
+  "packId": "PACK-11",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-PRP-3003",
+    "claimType": "property",
+    "claimantName": "Kiara Naidu",
+    "claimantEmail": "kiara.naidu@example.com",
+    "incidentDate": "2026-09-17",
+    "claimedAmount": 41250,
+    "description": "Water leaked from the flat above after a pipe burst, damaging ceiling plaster and wiring.",
+    "region": "EAST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-PRP-3003",
+        "CLAIMANT_NAME": "Kiara Naidu",
+        "INCIDENT_DATE": "17 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 41,250.00",
+        "CLAIM_TYPE": "Property"
+      }
+    },
+    {
+      "file": "repair_invoice.png",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-19625",
+        "INVOICE_DATE": "20/09/2026",
+        "CUSTOMER_NAME": "Kiara Naidu",
+        "TOTAL_AMOUNT": "INR 41,250.00"
+      }
+    },
+    {
+      "file": "photo_evidence.png",
+      "docType": "photo_evidence",
+      "fields": {}
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

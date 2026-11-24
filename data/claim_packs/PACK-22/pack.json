@@ -1,0 +1,52 @@
+{
+  "packId": "PACK-22",
+  "scenario": "high_value",
+  "claim": {
+    "policyNumber": "P-MOT-1008",
+    "claimType": "motor",
+    "claimantName": "Manav Shetty",
+    "claimantEmail": "manav.shetty@example.com",
+    "incidentDate": "2026-09-18",
+    "claimedAmount": 650000,
+    "description": "Rear-ended at a traffic signal; front bumper and headlamp damaged when pushed into the car ahead.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-MOT-1008",
+        "CLAIMANT_NAME": "Manav Shetty",
+        "INCIDENT_DATE": "18 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 6,50,000.00",
+        "CLAIM_TYPE": "Motor"
+      }
+    },
+    {
+      "file": "repair_invoice.png",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-28052",
+        "INVOICE_DATE": "23/09/2026",
+        "CUSTOMER_NAME": "Manav Shetty",
+        "TOTAL_AMOUNT": "INR 6,50,000.00"
+      }
+    },
+    {
+      "file": "photo_evidence.png",
+      "docType": "photo_evidence",
+      "fields": {}
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "senior_approver"
+  }
+}

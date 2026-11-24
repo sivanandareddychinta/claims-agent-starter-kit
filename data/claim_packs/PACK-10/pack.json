@@ -1,0 +1,52 @@
+{
+  "packId": "PACK-10",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-PRP-3002",
+    "claimType": "property",
+    "claimantName": "Reyansh Chatterjee",
+    "claimantEmail": "reyansh.chatterjee@example.com",
+    "incidentDate": "2026-08-30",
+    "claimedAmount": 152000,
+    "description": "Short circuit damaged wiring and flooring in the kitchen.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-PRP-3002",
+        "CLAIMANT_NAME": "Reyansh Chatterjee",
+        "INCIDENT_DATE": "30 Aug 2026",
+        "CLAIMED_AMOUNT": "INR 1,52,000.00",
+        "CLAIM_TYPE": "Property"
+      }
+    },
+    {
+      "file": "repair_invoice.png",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-48100",
+        "INVOICE_DATE": "02/09/2026",
+        "CUSTOMER_NAME": "Reyansh Chatterjee",
+        "TOTAL_AMOUNT": "INR 1,52,000.00"
+      }
+    },
+    {
+      "file": "photo_evidence.png",
+      "docType": "photo_evidence",
+      "fields": {}
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

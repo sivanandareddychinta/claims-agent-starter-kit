@@ -1,0 +1,56 @@
+{
+  "packId": "PACK-26",
+  "scenario": "out_of_policy",
+  "claim": {
+    "policyNumber": "P-MOT-1010",
+    "claimType": "health",
+    "claimantName": "Omkar Banerjee",
+    "claimantEmail": "omkar.banerjee@example.com",
+    "incidentDate": "2026-09-24",
+    "claimedAmount": 47700,
+    "description": "Admitted with high fever and low platelet count; treated in ward for several days.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-MOT-1010",
+        "CLAIMANT_NAME": "Omkar Banerjee",
+        "INCIDENT_DATE": "24 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 47,700.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-319440",
+        "PATIENT_NAME": "Omkar Banerjee",
+        "ADMISSION_DATE": "24/09/2026",
+        "TOTAL_AMOUNT": "INR 47,700.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Omkar Banerjee",
+        "ADMISSION_DATE": "2026-09-24",
+        "DIAGNOSIS": "Laparoscopic cholecystectomy for gallstones"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": true,
+    "outOfPolicyReason": "health claim on a motor policy",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

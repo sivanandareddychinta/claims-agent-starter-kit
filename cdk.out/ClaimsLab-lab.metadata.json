@@ -1,0 +1,1763 @@
+{
+  "/ClaimsLab-lab": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    },
+    {
+      "type": "aws:cdk:templateFile",
+      "data": "ClaimsLab-lab.template.json"
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "lab-id",
+          "value": "lab"
+        },
+        {
+          "key": "project",
+          "value": "claims-agent-lab"
+        }
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+      "data": true
+    }
+  ],
+  "/ClaimsLab-lab/GroupAdjusters": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GroupAdjusters"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/GroupApprovers": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GroupApprovers"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/GroupSupervisors": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GroupSupervisors"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SlaScheduleGroup": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SlaScheduleGroup"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": [
+    {
+      "type": "aws:cdk:is-custom-resource-handler-singleton",
+      "data": true
+    },
+    {
+      "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+      "data": 2
+    }
+  ],
+  "/ClaimsLab-lab/PortalUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ApiUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/UserPoolId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/UserPoolClientId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolClientId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CognitoDomain": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CognitoDomain"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CasesTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CasesTable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PoliciesTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PoliciesTable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/AdjustersTable": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AdjustersTable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentsBucket": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentsBucket"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/HistoryBucket": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HistoryBucket"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/StateMachineArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "StateMachineArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/GatewayInvokePolicyArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GatewayInvokePolicyArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/EvaluatorFunctionArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EvaluatorFunctionArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ParamPrefix": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ParamPrefix"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/KitVariant": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "KitVariant"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/IntakeToolsArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IntakeToolsArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentToolsArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentToolsArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseToolsArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseToolsArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RoutingToolsArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoutingToolsArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CommsToolsArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CommsToolsArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Cases/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Cases80582F3E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Policies/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "Policies05F61E66"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Adjusters/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AdjustersFA1ECED8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalBucketF34416C0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketAutoDeleteObjects"
+      }
+    }
+  ],
+  "/ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalDistribution/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalDistribution104A9AF0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocsBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocsBucketECEA003F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketAutoDeleteObjects"
+      }
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistoryBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryBucket2A160DFF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/UserPool/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPool6BA7E5F2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SlaEscalationLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SlaEscalationLogs383C9205"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SlaEscalation/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SlaEscalationCCC58A94"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SchedulerRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SchedulerRole59E73443"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/IntakeToolsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IntakeToolsLogs74FAAC2D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/IntakeTools/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IntakeTools55EA44B8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentToolsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentToolsLogs7BA8DC43"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentTools/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentTools25F20EFF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseToolsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseToolsLogsBFC8BAD6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseTools/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseTools9FDD4706"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RoutingToolsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoutingToolsLogs202DADD9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RoutingTools/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoutingToolsB0E30BEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CommsToolsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CommsToolsLogs34E2FB3D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CommsTools/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CommsTools0F50BB41"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/InvokeSupervisorLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvokeSupervisorLogs7CF22F5D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/InvokeSupervisor/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvokeSupervisorFDAD03C0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/HumanTaskLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HumanTaskLogs1C9A47DB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/HumanTask/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HumanTask68A21437"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/FinalizeCaseLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FinalizeCaseLogsB77A24CB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/FinalizeCase/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FinalizeCaseDFA109E9"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalApiLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalApiLogsA9A7DAC0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalApiF0FAB5E8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistoryLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryLogsD87E9471"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistory/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistory8509CFDC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ClaimsEvaluatorsLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClaimsEvaluatorsLogsEA234E5A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ClaimsEvaluators/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClaimsEvaluators9787382A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ClaimsEvaluators/AgentCoreEvaluations": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClaimsEvaluatorsAgentCoreEvaluationsA31FC5B6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RuntimeArnParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RuntimeArnParamC22C9444"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/QualifierParam/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QualifierParam98076C90"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/WorkflowLogs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WorkflowLogs6DD5EEB0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseWorkflow/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseWorkflow862DE16C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiF7E56978"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/GatewayInvokeToolsPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GatewayInvokeToolsPolicyE4C420F7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalBucketPolicyAF0FA7F5"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketPolicyStatements"
+      }
+    }
+  ],
+  "/ClaimsLab-lab/PortalBucket/AutoDeleteObjectsCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalBucketAutoDeleteObjectsCustomResourceBC251FA1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocsBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocsBucketPolicy7BCF1FB7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    },
+    {
+      "type": "aws:cdk:analytics:mixin",
+      "data": {
+        "mixin": "aws-cdk-lib.aws_s3.mixins.BucketPolicyStatements"
+      }
+    }
+  ],
+  "/ClaimsLab-lab/DocsBucket/AutoDeleteObjectsCustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocsBucketAutoDeleteObjectsCustomResourceADA97380"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistoryBucket/Policy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryBucketPolicyD22EB43A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/UserPool/Domain/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolDomainD0EA232A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/UserPool/PortalClient/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolPortalClientF86287D1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SlaEscalation/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SlaEscalationServiceRole0FC20E30"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SchedulerRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SchedulerRoleDefaultPolicy66F774B8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/IntakeTools/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IntakeToolsServiceRoleD144F09F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentTools/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentToolsServiceRoleFB9DEEFE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseTools/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseToolsServiceRole818080FB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RoutingTools/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoutingToolsServiceRoleDDB49E4F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CommsTools/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CommsToolsServiceRoleCE5A134F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/InvokeSupervisor/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvokeSupervisorServiceRole312A87E2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/HumanTask/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HumanTaskServiceRoleF596793D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/FinalizeCase/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FinalizeCaseServiceRoleA80DFA20"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalApi/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalApiServiceRole9234DE72"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistory/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryServiceRole9FF82C58"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistory/DynamoDBEventSource:ClaimsLablabCasesD5803C1D/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryDynamoDBEventSourceClaimsLablabCasesD5803C1D5B37DDEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ClaimsEvaluators/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClaimsEvaluatorsServiceRoleC9E2A7E0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseWorkflow/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseWorkflowRole8D89608F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/DefaultStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiDefaultStage84866E5D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime, node internals...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--me/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETmePortalApiIntegrationPermission593B1AD7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--me/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETmeAD377094"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/CognitoAuthorizer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiCognitoAuthorizer6072556D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--claims/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETclaimsPortalApiIntegrationPermission021ADEED"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--claims/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETclaims41878DE6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimsPortalApiIntegrationPermissionF81BC8CF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimsB7D864CE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--claims--{caseId}/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETclaimscaseIdPortalApiIntegrationPermission2A726A58"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--claims--{caseId}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETclaimscaseIdED2CF2A1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--submit/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIdsubmitPortalApiIntegrationPermission7669EC63"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--submit/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIdsubmit9525EDF7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddocumentsPortalApiIntegrationPermission0D62503C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddocuments96ECD235"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents--complete/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddocumentscompletePortalApiIntegrationPermission4752AC19"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--documents--complete/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddocumentscomplete33323334"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--decision/PortalApiIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddecisionPortalApiIntegrationPermission921DB60E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/POST--claims--{caseId}--decision/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiPOSTclaimscaseIddecision473C1688"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalFiles/AwsCliLayer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalFilesAwsCliLayer89FDF2D6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalFiles/CustomResource/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalFilesCustomResourceBFFBBBDA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalDistribution/Origin1/S3OriginAccessControl/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalDistributionOrigin1S3OriginAccessControlEB064077"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/SlaEscalation/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "SlaEscalationServiceRoleDefaultPolicy820AFB32"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/IntakeTools/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "IntakeToolsServiceRoleDefaultPolicy12E676B2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/DocumentTools/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DocumentToolsServiceRoleDefaultPolicy4B95D0DA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseTools/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseToolsServiceRoleDefaultPolicyCABDF709"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/RoutingTools/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoutingToolsServiceRoleDefaultPolicyDB915795"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CommsTools/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CommsToolsServiceRoleDefaultPolicyC4E21DD8"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/InvokeSupervisor/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "InvokeSupervisorServiceRoleDefaultPolicy733D3485"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/HumanTask/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HumanTaskServiceRoleDefaultPolicyF075AB87"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, jsii runtime...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/FinalizeCase/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "FinalizeCaseServiceRoleDefaultPolicyA3FD8035"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalApi/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalApiServiceRoleDefaultPolicyDB125559"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ActionHistory/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ActionHistoryServiceRoleDefaultPolicyC081A069"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/ClaimsEvaluators/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ClaimsEvaluatorsServiceRoleDefaultPolicy4F202AD2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/CaseWorkflow/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CaseWorkflowRoleDefaultPolicy5C53BD24"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/PortalHttpApi/GET--me/PortalApiIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "PortalHttpApiGETmePortalApiIntegrationF796BE11"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...C:\\Users\\SRIMAH~1\\AppData\\Local\\Temp\\jsii-kernel-XODU2G\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...aws-cdk-lib, jsii runtime..."
+      ]
+    }
+  ],
+  "/ClaimsLab-lab/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

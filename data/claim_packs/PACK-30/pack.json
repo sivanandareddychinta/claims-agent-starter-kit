@@ -1,0 +1,56 @@
+{
+  "packId": "PACK-30",
+  "scenario": "name_mismatch",
+  "claim": {
+    "policyNumber": "P-HLT-2008",
+    "claimType": "health",
+    "claimantName": "Ravi Shankar Prasad",
+    "claimantEmail": "ravi.prasad@example.com",
+    "incidentDate": "2026-09-16",
+    "claimedAmount": 58300,
+    "description": "Hospitalised after a fall at home; fracture treated and cast applied.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2008",
+        "CLAIMANT_NAME": "Ravi Shankar Prasad",
+        "INCIDENT_DATE": "16 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 58,300.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-340336",
+        "PATIENT_NAME": "Ravi Shankar Prasad",
+        "ADMISSION_DATE": "16/09/2026",
+        "TOTAL_AMOUNT": "INR 58,300.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Ravi Shankar Prasad",
+        "ADMISSION_DATE": "2026-09-16",
+        "DIAGNOSIS": "Dengue fever with thrombocytopenia"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": true,
+    "outOfPolicyReason": "claimant is not the policy holder",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

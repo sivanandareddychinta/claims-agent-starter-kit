@@ -1,0 +1,9 @@
+{
+  "_about": "CI gate: average score per evaluator must reach these values. Custom evaluator IDs are added with --custom (their threshold is 'custom').",
+  "Builtin.GoalSuccessRate": 0.9,
+  "Builtin.TrajectoryInOrderMatch": 0.9,
+  "Builtin.Correctness": 0.8,
+  "Builtin.ToolSelectionAccuracy": 0.9,
+  "SummaryQuality": 0.8,
+  "custom": 0.95
+}

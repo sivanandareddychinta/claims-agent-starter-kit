@@ -1,0 +1,88 @@
+[
+  {
+    "name": "scheduleSla",
+    "description": "Schedule an SLA deadline. If the case is still waiting when it expires, it is escalated to a supervisor.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "stage": {
+          "type": "string",
+          "description": "approval or documents"
+        },
+        "hours": {
+          "type": "number",
+          "description": "Hours until the SLA expires, e.g. 48"
+        }
+      },
+      "required": [
+        "caseId",
+        "stage",
+        "hours"
+      ]
+    }
+  },
+  {
+    "name": "sendNotification",
+    "description": "Email the assignee, approver, claimant or supervisor about the case. A portal link is added automatically.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "recipientRole": {
+          "type": "string",
+          "description": "assignee, approver, claimant or supervisor"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Short subject line"
+        },
+        "message": {
+          "type": "string",
+          "description": "Plain-language message, 2-6 sentences, no internal flags or scores"
+        }
+      },
+      "required": [
+        "caseId",
+        "recipientRole",
+        "subject",
+        "message"
+      ]
+    }
+  },
+  {
+    "name": "requestDocuments",
+    "description": "Ask the claimant to upload missing documents, by email with a portal link.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "caseId": {
+          "type": "string",
+          "description": "Case ID, e.g. CLM-20261016-AB12"
+        },
+        "documentTypes": {
+          "type": "array",
+          "description": "Document types needed, e.g. repair_invoice",
+          "items": {
+            "type": "string"
+          }
+        },
+        "message": {
+          "type": "string",
+          "description": "Polite explanation of what is needed and why"
+        }
+      },
+      "required": [
+        "caseId",
+        "documentTypes",
+        "message"
+      ]
+    }
+  }
+]

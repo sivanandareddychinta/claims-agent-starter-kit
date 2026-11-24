@@ -1,0 +1,56 @@
+{
+  "packId": "PACK-23",
+  "scenario": "high_value",
+  "claim": {
+    "policyNumber": "P-HLT-2007",
+    "claimType": "health",
+    "claimantName": "Zoya Iyer",
+    "claimantEmail": "zoya.iyer@example.com",
+    "incidentDate": "2026-09-27",
+    "claimedAmount": 905000,
+    "description": "Hospitalised after a fall at home; fracture treated and cast applied.",
+    "region": "EAST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2007",
+        "CLAIMANT_NAME": "Zoya Iyer",
+        "INCIDENT_DATE": "27 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 9,05,000.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-612542",
+        "PATIENT_NAME": "Zoya Iyer",
+        "ADMISSION_DATE": "27/09/2026",
+        "TOTAL_AMOUNT": "INR 9,05,000.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Zoya Iyer",
+        "ADMISSION_DATE": "2026-09-27",
+        "DIAGNOSIS": "Dengue fever with thrombocytopenia"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "senior_approver"
+  }
+}

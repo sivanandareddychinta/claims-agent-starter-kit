@@ -1,0 +1,366 @@
+[
+  {
+    "policyNumber": "P-HLT-2001",
+    "holderName": "Saanvi Bose",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-HLT-2002",
+    "holderName": "Vihaan Banerjee",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-HLT-2003",
+    "holderName": "Anika Joshi",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-HLT-2004",
+    "holderName": "Arjun Desai",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-HLT-2005",
+    "holderName": "Dhruv Verma",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-HLT-2006",
+    "holderName": "Siddharth Kulkarni",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-HLT-2007",
+    "holderName": "Zoya Iyer",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-HLT-2008",
+    "holderName": "Aarav Chatterjee",
+    "product": "Family Health Floater",
+    "coveredClaimTypes": [
+      "health"
+    ],
+    "sumInsured": 1000000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-MOT-1001",
+    "holderName": "Diya Das",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-MOT-1002",
+    "holderName": "Kabir Shetty",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-MOT-1003",
+    "holderName": "Ishita Iyer",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-MOT-1004",
+    "holderName": "Rohan Menon",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-MOT-1005",
+    "holderName": "Aditi Pillai",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-MOT-1006",
+    "holderName": "Karthik Gupta",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-MOT-1007",
+    "holderName": "Pooja Kaur",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-MOT-1008",
+    "holderName": "Manav Shetty",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-MOT-1009",
+    "holderName": "Ritika Bose",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2025-01-01",
+    "endDate": "2025-12-31",
+    "status": "EXPIRED",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-MOT-1010",
+    "holderName": "Omkar Banerjee",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-MOT-1011",
+    "holderName": "Yash Desai",
+    "product": "Private Car Package",
+    "coveredClaimTypes": [
+      "motor"
+    ],
+    "sumInsured": 800000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-PRP-3001",
+    "holderName": "Myra Patel",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  },
+  {
+    "policyNumber": "P-PRP-3002",
+    "holderName": "Reyansh Chatterjee",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "NORTH"
+  },
+  {
+    "policyNumber": "P-PRP-3003",
+    "holderName": "Kiara Naidu",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-PRP-3004",
+    "holderName": "Advait Nair",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-PRP-3005",
+    "holderName": "Nisha Reddy",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-PRP-3006",
+    "holderName": "Lakshmi Rao",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-PRP-3007",
+    "holderName": "Pranav Menon",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "SOUTH"
+  },
+  {
+    "policyNumber": "P-PRP-3008",
+    "holderName": "Shreya Joshi",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-06-01",
+    "endDate": "2027-05-31",
+    "status": "ACTIVE",
+    "region": "EAST"
+  },
+  {
+    "policyNumber": "P-PRP-3009",
+    "holderName": "Gauri Patel",
+    "product": "Home Shield",
+    "coveredClaimTypes": [
+      "property"
+    ],
+    "sumInsured": 2500000,
+    "startDate": "2026-01-01",
+    "endDate": "2026-12-31",
+    "status": "ACTIVE",
+    "region": "WEST"
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "packId": "PACK-07",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-HLT-2003",
+    "claimType": "health",
+    "claimantName": "Anika Joshi",
+    "claimantEmail": "anika.joshi@example.com",
+    "incidentDate": "2026-09-21",
+    "claimedAmount": 31500,
+    "description": "Hospitalised after a fall at home; fracture treated and cast applied.",
+    "region": "EAST"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2003",
+        "CLAIMANT_NAME": "Anika Joshi",
+        "INCIDENT_DATE": "21 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 31,500.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-851324",
+        "PATIENT_NAME": "Anika Joshi",
+        "ADMISSION_DATE": "21/09/2026",
+        "TOTAL_AMOUNT": "INR 31,500.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Anika Joshi",
+        "ADMISSION_DATE": "2026-09-21",
+        "DIAGNOSIS": "Laparoscopic cholecystectomy for gallstones"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

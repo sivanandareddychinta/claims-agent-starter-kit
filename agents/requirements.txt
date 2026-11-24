@@ -1,0 +1,5 @@
+# Add these to the pyproject.toml that `agentcore create` generated (keep what it already lists)
+strands-agents
+bedrock-agentcore
+mcp-proxy-for-aws>=1.1.5
+aws-opentelemetry-distro>=0.18.0   # traces for AgentCore Observability and Evaluations

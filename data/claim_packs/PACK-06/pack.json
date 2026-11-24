@@ -1,0 +1,65 @@
+{
+  "packId": "PACK-06",
+  "scenario": "normal",
+  "claim": {
+    "policyNumber": "P-HLT-2002",
+    "claimType": "health",
+    "claimantName": "Vihaan Banerjee",
+    "claimantEmail": "vihaan.banerjee@example.com",
+    "incidentDate": "2026-08-19",
+    "claimedAmount": 138750,
+    "description": "Admitted through emergency with severe abdominal pain; surgery performed.",
+    "region": "NORTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.png",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-HLT-2002",
+        "CLAIMANT_NAME": "Vihaan Banerjee",
+        "INCIDENT_DATE": "19 Aug 2026",
+        "CLAIMED_AMOUNT": "INR 1,38,750.00",
+        "CLAIM_TYPE": "Health"
+      }
+    },
+    {
+      "file": "hospital_invoice.png",
+      "docType": "hospital_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "HB-257122",
+        "PATIENT_NAME": "Vihaan Banerjee",
+        "ADMISSION_DATE": "19/08/2026",
+        "TOTAL_AMOUNT": "INR 1,38,750.00"
+      }
+    },
+    {
+      "file": "medical_report.png",
+      "docType": "medical_report",
+      "fields": {
+        "PATIENT_NAME": "Vihaan Banerjee",
+        "ADMISSION_DATE": "2026-08-19",
+        "DIAGNOSIS": "Laparoscopic cholecystectomy for gallstones"
+      }
+    },
+    {
+      "file": "id_document.png",
+      "docType": "id_document",
+      "fields": {
+        "FULL_NAME": "Vihaan Banerjee",
+        "DATE_OF_BIRTH": "15 Jun 1978",
+        "ID_NUMBER": "LAB-ID-951340"
+      }
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": false,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}

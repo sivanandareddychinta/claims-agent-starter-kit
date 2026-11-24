@@ -1,0 +1,13 @@
+{
+  "app": "..\\.venv\\Scripts\\python.exe app.py",
+  "watch": {"include": ["**"], "exclude": ["cdk.out", "**/__pycache__"]},
+  "context": {
+    "labId": "ve20692364",
+    "senderEmail": "veeravenkatasivanandareddychinta.chinta@wipro.com",
+    "notifyOverrideEmail": "veeravenkatasivanandareddychinta.chinta@wipro.com",
+    "slaMinutesOverride": "10",
+    "classifierModelId": "us.amazon.nova-lite-v1:0",
+    "cognitoDomainPrefix": "",
+    "solutions": "false"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "_comment": "Smallest model that passes each agent's evaluations. Check IDs in the Bedrock console for your Region; us.* are US cross-Region inference profiles.",
+  "models": {
+    "supervisor": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "intake": "us.amazon.nova-micro-v1:0",
+    "document": "us.amazon.nova-lite-v1:0",
+    "summary": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "routing": "us.amazon.nova-micro-v1:0",
+    "sla_comms": "us.amazon.nova-micro-v1:0"
+  }
+}

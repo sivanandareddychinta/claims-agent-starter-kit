@@ -1,0 +1,52 @@
+{
+  "packId": "PACK-16",
+  "scenario": "unreadable_scan",
+  "claim": {
+    "policyNumber": "P-MOT-1006",
+    "claimType": "motor",
+    "claimantName": "Karthik Gupta",
+    "claimantEmail": "karthik.gupta@example.com",
+    "incidentDate": "2026-09-06",
+    "claimedAmount": 66300,
+    "description": "Hit a pothole at speed during heavy rain; suspension and bumper damaged.",
+    "region": "SOUTH"
+  },
+  "documents": [
+    {
+      "file": "claim_form.jpg",
+      "docType": "claim_form",
+      "fields": {
+        "POLICY_NUMBER": "P-MOT-1006",
+        "CLAIMANT_NAME": "Karthik Gupta",
+        "INCIDENT_DATE": "06 Sep 2026",
+        "CLAIMED_AMOUNT": "INR 66,300.00",
+        "CLAIM_TYPE": "Motor"
+      }
+    },
+    {
+      "file": "repair_invoice.jpg",
+      "docType": "repair_invoice",
+      "fields": {
+        "INVOICE_NUMBER": "INV-42365",
+        "INVOICE_DATE": "13/09/2026",
+        "CUSTOMER_NAME": "Karthik Gupta",
+        "TOTAL_AMOUNT": "INR 66,300.00"
+      }
+    },
+    {
+      "file": "photo_evidence.jpg",
+      "docType": "photo_evidence",
+      "fields": {}
+    }
+  ],
+  "expected": {
+    "outOfPolicy": false,
+    "outOfPolicyReason": "",
+    "duplicateOfPack": null,
+    "missingDocTypes": [],
+    "expectLowConfidence": true,
+    "suspiciousDocument": false,
+    "invoiceMismatch": false,
+    "approverTier": "approver"
+  }
+}
