@@ -1,0 +1,10 @@
+{
+  "targets": {
+    "default": {
+      "stackArn": "arn:aws:cloudformation:us-east-1:047719662671:stack/AgentCore-ClaimsAgentsve20692364-default/e4c39530-d3cf-11f1-b2f3-0affe99a78bd",
+      "resources": {
+        "credentials": {}
+      }
+    }
+  }
+}

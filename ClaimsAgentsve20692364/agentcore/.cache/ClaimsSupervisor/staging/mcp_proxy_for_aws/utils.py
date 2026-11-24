@@ -1,0 +1,309 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Utility functions for the MCP Proxy for AWS."""
+
+import argparse
+import httpx
+import logging
+import os
+from fastmcp.client.transports import StreamableHttpTransport
+from mcp_proxy_for_aws.sigv4_helper import (
+    create_aws_session,
+    create_sigv4_client,
+    find_reserved_headers,
+    register_sensitive_headers,
+)
+from typing import Any
+from urllib.parse import urlparse
+
+
+logger = logging.getLogger(__name__)
+
+
+def validate_endpoint_url(endpoint: str, allow_localhost_http: bool = True) -> None:
+    """Validate endpoint URL scheme for secure credential transmission.
+
+    AWS credentials are sent via SigV4 signing headers, so endpoints must use HTTPS
+    to prevent credential interception via man-in-the-middle attacks.
+
+    Args:
+        endpoint: The endpoint URL to validate
+        allow_localhost_http: Whether to allow HTTP for localhost (default: True)
+
+    Raises:
+        ValueError: If URL scheme is not HTTPS (or HTTP for allowed localhost)
+    """
+    parsed = urlparse(endpoint)
+
+    if not parsed.scheme:
+        raise ValueError(
+            f"Invalid endpoint URL '{endpoint}': missing URL scheme. "
+            'Use https:// prefix for secure connections.'
+        )
+
+    if parsed.scheme == 'https':
+        return  # Valid
+
+    if parsed.scheme == 'http':
+        if allow_localhost_http and parsed.hostname in ('localhost', '127.0.0.1', '::1'):
+            return  # Allow HTTP for local development
+        raise ValueError(
+            f"Invalid endpoint URL '{endpoint}': HTTP is not allowed for remote endpoints. "
+            'AWS credentials must be transmitted over HTTPS to prevent interception. '
+            'Use https:// instead.'
+        )
+
+    raise ValueError(
+        f"Invalid endpoint URL '{endpoint}': unsupported scheme '{parsed.scheme}'. "
+        'Only HTTPS is supported for secure credential transmission.'
+    )
+
+
+def create_transport_with_sigv4(
+    url: str,
+    service: str,
+    region: str,
+    metadata: dict[str, Any],
+    custom_timeout: httpx.Timeout,
+    profile: str | None = None,
+    disable_telemetry: bool = False,
+    skip_auth: bool = False,
+    extra_headers: dict[str, str] | None = None,
+) -> StreamableHttpTransport:
+    """Create a StreamableHttpTransport with SigV4 authentication.
+
+    Args:
+        url: The endpoint URL
+        service: AWS service name for SigV4 signing
+        region: AWS region to use
+        metadata: Metadata dictionary to inject into MCP requests
+        custom_timeout: httpx.Timeout used to connect to the endpoint
+        profile: AWS profile to use (optional)
+        disable_telemetry: Whether to disable telemetry
+        skip_auth: Whether to skip signing when credentials are unavailable
+        extra_headers: Additional HTTP headers to send on every request
+
+    Returns:
+        StreamableHttpTransport instance with SigV4 authentication
+
+    Raises:
+        ValueError: If a header name would be overwritten by SigV4 signing
+    """
+    if extra_headers:
+        reserved = find_reserved_headers(extra_headers)
+        if reserved:
+            raise ValueError(
+                f'These headers are set by SigV4 signing and cannot be overridden: '
+                f'{", ".join(reserved)}'
+            )
+        register_sensitive_headers(extra_headers.keys())
+
+    def client_factory(
+        headers: dict[str, str] | None = None,
+        timeout: httpx.Timeout | None = None,
+        auth: httpx.Auth | None = None,
+        **kw,
+    ) -> httpx.AsyncClient:
+        merged = {**(headers or {}), **(extra_headers or {})} or None
+        return create_sigv4_client(
+            service=service,
+            region=region,
+            profile=profile,
+            headers=merged,
+            timeout=custom_timeout,
+            metadata=metadata,
+            disable_telemetry=disable_telemetry,
+            skip_auth=skip_auth,
+            auth=auth,
+            **kw,
+        )
+
+    return StreamableHttpTransport(
+        url=url,
+        httpx_client_factory=client_factory,
+    )
+
+
+def get_service_name_and_region_from_endpoint(endpoint: str) -> tuple[str, str]:
+    """Extract service name and region from an endpoint URL.
+
+    Args:
+        endpoint: The endpoint URL to parse (must use HTTPS for remote endpoints)
+
+    Returns:
+        Tuple of (service_name, region). Either value may be empty string if not found.
+
+    Raises:
+        ValueError: If endpoint URL does not use HTTPS (except localhost for development)
+
+    Notes:
+        - Validates URL scheme is HTTPS before parsing
+        - Matches bedrock-agentcore endpoints (gateway and runtime)
+        - Matches AWS API Gateway endpoints (service.region.api.aws)
+        - Falls back to extracting first hostname segment as service name
+    """
+    # Validate URL scheme for security
+    validate_endpoint_url(endpoint)
+
+    # Parse AWS service from endpoint URL
+    parsed = urlparse(endpoint)
+    hostname = parsed.hostname or ''
+    match hostname.split('.'):
+        case [*_, 'bedrock-agentcore', region, 'amazonaws', 'com']:
+            return 'bedrock-agentcore', region  # gateway and runtime
+        case [service, region, 'api', 'aws']:
+            return service, region
+        case [service, *_]:
+            # Fallback: extract first segment as service name
+            return service, ''
+        case _:
+            logger.warning('Could not parse endpoint, no hostname found')
+            return '', ''
+
+
+def determine_service_name(endpoint: str, service: str | None = None) -> str:
+    """Validate and determine the service name and possibly region from an endpoint.
+
+    Args:
+        endpoint: The endpoint URL
+        service: Optional service name
+
+    Returns:
+        Validated service name
+        Validated region
+
+    Raises:
+        ValueError: If service cannot be determined
+    """
+    if service:
+        return service
+
+    logger.info('Resolving service name')
+    endpoint_service, _ = get_service_name_and_region_from_endpoint(endpoint)
+    determined_service = service or endpoint_service
+
+    if not determined_service:
+        raise ValueError(
+            f"Could not determine AWS service name and region from endpoint '{endpoint}' and they were not provided."
+            'Please provide the service name explicitly using --service argument and the region via --region argument.'
+        )
+    return determined_service
+
+
+def determine_signing_region(endpoint: str, region: str | None) -> str:
+    """Determine the AWS region to use for SigV4 signing.
+
+    The signature's credential scope must match the endpoint's region, so the
+    endpoint takes precedence over profile or environment configuration.
+
+    Args:
+        endpoint: The endpoint URL
+        region: Optional region name
+
+    Returns:
+        Validated signing region
+
+    Raises:
+        ValueError: If region cannot be determined
+    """
+    if region:
+        logger.debug('Signing region determined through explicit parameter')
+        return region
+
+    # Parse AWS region from endpoint URL
+    _, endpoint_region = get_service_name_and_region_from_endpoint(endpoint)
+    if endpoint_region:
+        logger.debug('Signing region determined through endpoint URL')
+        return endpoint_region
+
+    environment_region = os.getenv('AWS_REGION')
+    if environment_region:
+        logger.debug('Signing region determined through environment variable')
+        return environment_region
+
+    raise ValueError(
+        f"Could not determine AWS region from endpoint '{endpoint}' or from environment variable AWS_REGION. "
+        'Please provide the region explicitly using --region argument.'
+    )
+
+
+def determine_aws_region(endpoint: str, profile: str | None = None) -> str:
+    """Determine the AWS region the backend should operate in (injected as AWS_REGION metadata).
+
+    Resolution order matches the AWS CLI and boto3: the profile/environment
+    configuration chain, then the endpoint region as a fallback.
+
+    Args:
+        endpoint: The endpoint URL
+        profile: Optional AWS profile name
+
+    Returns:
+        Validated AWS region
+
+    Raises:
+        ValueError: If region cannot be determined
+    """
+    session_region = create_aws_session(profile).region_name
+    if session_region:
+        logger.debug('Region determined through AWS configuration chain')
+        return session_region
+
+    environment_region = os.getenv('AWS_REGION')
+    if environment_region:
+        logger.debug('Region determined through environment variable `AWS_REGION`')
+        return environment_region
+
+    # Parse AWS region from endpoint URL
+    _, endpoint_region = get_service_name_and_region_from_endpoint(endpoint)
+    if endpoint_region:
+        logger.debug('Region determined through endpoint URL')
+        return endpoint_region
+
+    raise ValueError(
+        f"Could not determine AWS region from endpoint '{endpoint}', AWS configuration, "
+        'or environment. Please configure a region via AWS_REGION or your AWS profile.'
+    )
+
+
+def within_range(min_value: float, max_value: float | None = None):
+    """Factory function to create range validators.
+
+    Args:
+        min_value: Minimum value
+        max_value: Maximum value
+
+
+    Returns:
+        The argparse validator function
+
+    Raises:
+        argparse.ArgumentTypeError: If min and max are not within range
+    """
+
+    def validator(value):
+        try:
+            fvalue = float(value)
+        except ValueError:
+            raise argparse.ArgumentTypeError(f"'{value}' is not a valid integer")
+
+        if min_value is not None and fvalue < min_value:
+            raise argparse.ArgumentTypeError(f"'{value}' must be >= {min_value}")
+
+        if max_value is not None and fvalue > max_value:
+            raise argparse.ArgumentTypeError(f"'{value}' must be <= {max_value}")
+
+        return fvalue
+
+    return validator
